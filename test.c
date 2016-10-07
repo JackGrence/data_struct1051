@@ -4,10 +4,12 @@
 
 int main()
 {
-	char *str = "teststs";
-	char *pat = "st";
-	char *res;
-	res = strstr( str, pat );
-	printf( "%s\n", res );
+	char a[50], b[50];
+	scanf( "%s", a );
+	scanf( "%s", b );
+
+	char *c = strstr( a, b );
+	*c = '\0';
+	printf( "%s", a );
 	return 0;
 }
