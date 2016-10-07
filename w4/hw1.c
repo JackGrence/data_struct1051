@@ -58,7 +58,11 @@ void presult( void )
 	{
 		for( j = 0; j < 17; j++ ) 
 		{
-			printf( "%d ", res[i][j] );
+			if( res[i][j] == 0 )
+			{
+				printf( "# " );
+			}
+			else printf( "%d ", res[i][j] );
 		}
 		printf( "\n" );
 	}
@@ -88,7 +92,7 @@ int main( void )
 		if( j == 4 ) j++;
 		nesw[ i ].row = j / 3 - center.row;
 		nesw[ i ].col = j % 3 - center.col;
-		printf( "%d = %d %d\n", i, nesw[ i ].row, nesw[ i ].col );
+		//printf( "%d = %d %d\n", i, nesw[ i ].row, nesw[ i ].col );
 		j++;
 	}
 
@@ -100,9 +104,11 @@ int main( void )
 		}
 	}
 	
-	player.dir = 5;
+	player.dir = 8;
 	player.row = 1;
 	player.col = 1;
+	push( player );
+	player.dir = 0;
 	
 	int next_row;
 	int next_col;
@@ -123,7 +129,7 @@ int main( void )
 				player.dir = 0;
 				player.row = next_row;
 				player.col = next_col;
-				printf( "dir = %d prow = %d pcol = %d\nnrow=%d ncol=%d\n", player.dir, player.row, player.col, next_row, next_col );
+				//printf( "dir = %d prow = %d pcol = %d\nnrow=%d ncol=%d\n", player.dir, player.row, player.col, next_row, next_col );
 				if( next_row == 12 && next_col == 15 )
 				{
 					player.row = next_row;
