@@ -52,9 +52,9 @@ int main( void )
 		else if( n < 0 )
 		{
 			n = 0 - n;
-			if( quefirstvalue( 0 ) == n )
+			if( quefirstvalue( n-1 ) != 0 )
 			{
-				deletq( &queue[0] );
+				deletq( &queue[n-1] );
 			}
 			else if( quefirstvalue( 1 ) == n )
 			{
