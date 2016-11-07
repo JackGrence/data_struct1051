@@ -9,7 +9,7 @@ int main( void )
 	int start = -1, end = 20, mid = ( start + end ) / 2;
 	int key, find;
 	pary( ary );
-	
+
 	printf( "find:" );
 	while( scanf( "%d", &key ) != EOF )
 	{

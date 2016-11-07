@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct tree
 {
@@ -9,14 +10,14 @@ typedef struct tree
 
 node *root;
 void insert( node newItem );
-void pResult( node *cur, int index );
+void pResult( node *cur, char *str  );
 node **searchInsertAdr( int data, node *cur );
 int main( void )
 {
 	node newItem;
-	root = malloc( sizeof( node ) );
+	root = ( node * ) malloc( sizeof( node ) );
 	root->data = 50;
-	
+
 	newItem.right = NULL;
 	newItem.left = NULL;
 
@@ -24,12 +25,12 @@ int main( void )
 	insert( newItem );
 	newItem.data = 80;
 	insert( newItem );
-	
+
 	printf( "insert data:" );
 	while( scanf( "%d", &newItem.data ) != EOF )
 	{
 		insert( newItem );
-		pResult( root, 0 );
+		pResult( root, (char *) "" );
 		printf( "insert data:" );
 	}
 
@@ -48,7 +49,7 @@ void insert( node newItem )
 	}
 	else
 	{
-		*insertAdr = malloc( sizeof( node ) );
+		*insertAdr = ( node * ) malloc( sizeof( node ) );
 		**insertAdr = newItem;
 	}
 
@@ -69,19 +70,24 @@ node **searchInsertAdr( int data, node *cur )
 		return NULL;
 	}
 }
-
-void pResult( node *cur, int index )
+// ├　─　┼　┴　┬　┤　┌　┐　╞　═　╪　╡　│　▕
+// 　└　┘　╭　╮　╰　╯
+void pResult( node *cur, char *str  )
 {
-	int i;
-	printf( "%d ", cur->data );
-	if( cur->right != NULL ) pResult( cur->right, index + 1 );
-	printf( "\n" );
-	if( cur->left != NULL ) 
+	char treeLine[10000];
+	printf( "%d\n", cur->data );
+	if( cur->right != NULL || cur->left != NULL )
 	{
-		for( i = 0; i < index + 1; i++ )
-		{
-			printf( "%3s", " " );
-		}
-		pResult( cur->left, index + 1 );
+		printf( "%s├─", str );
+		strcpy( treeLine, str );
+		strcat( treeLine, "│ " );
+		if( cur->right != NULL ) pResult( cur->right, treeLine );
+		else printf( "NULL\n" );
+
+		printf( "%s└─", str );
+		strcpy( treeLine, str );
+		strcat( treeLine, "  " );
+		if( cur->left != NULL )	pResult( cur->left, treeLine );
+		else printf( "NULL\n" );
 	}
 }
