@@ -35,13 +35,13 @@ int main( void )
 			tmp.coeff = bignum[i] - 48;
 			tmp.pow = numlen - 1 - i;
 			if( tmp.coeff != 0 ) addq( &tmp, &numtop[j] ); // ignore zero value
-		}	
+		}
 		//pstack( numtop[j] );
 	}
 
-	resulttop = malloc( sizeof( node ) * resultlen );
+	resulttop = ( node * ) malloc( sizeof( node ) * resultlen );
 	pstack( mul( numtop[0], numtop[1], resulttop, resultlen ) );
-	
+
 	return 0;
 }
 
@@ -82,7 +82,7 @@ node *mul( node *n1, node *n2, node *resulttop, int resultlen )
 
 node *addnode( node *head )
 {
-	node *tmp = malloc( sizeof( node ) );
+	node *tmp = ( node * ) malloc( sizeof( node ) );
 	tmp->coeff = 0;
 	tmp->pow = head->pow;
 	for( ; head != NULL; head = head->link )
@@ -119,7 +119,7 @@ void pstack( node *head )
 			{
 				printf( "0" );
 			}
-		}		
+		}
 		//printf( "%dx^%d ", head->coeff, head->pow );
 	}
 	printf( "\n" );
@@ -127,7 +127,7 @@ void pstack( node *head )
 
 void addq( node *newitem, node **top )
 {
-	node *tmp = malloc( sizeof( node ) );
+	node *tmp = ( node * ) malloc( sizeof( node ) );
 	*tmp = *newitem;
 	tmp->link = *top;
 	*top = tmp;
