@@ -10,6 +10,10 @@ int minHeap[10];
 int latest = 0;
 int main( void )
 {
+	int defaultTree[] = {10, 20, 30, 40, 50, 55, 45, 35, 25, 15};
+	int i;
+	for( i = 0; i < 8; i++ ) insert( defaultTree[i] );
+	pResult();
 	int a;
 	printf( "(1)insert (2)pop (3)sort >> " );
 	while( scanf( "%d", &a ) != EOF )
@@ -48,13 +52,18 @@ void pSort( void )
 void insert( int item )
 {
 	int index;
+	if( latest >= 9 )
+	{
+		printf( "array is full\n" );
+		return;
+	}
 	latest++;
 	minHeap[ latest ] = item;
 	index = latest;
 	while( index != 1 )
 	{
 		if( minHeap[index] >= minHeap[ index / 2 ] ) break;
-		else swap( &minHeap[index], &minHeap[index/2] );
+		swap( &minHeap[index], &minHeap[index/2] );
 		index /= 2;
 	}
 }
@@ -76,28 +85,21 @@ int pop( int ary[] )
 		return 0;
 	}
 	result = ary[1];
-	ary[1] = ary[latest];
+	int tmp;
+	tmp = ary[latest];
 	latest--;
-	int index = 2;
-	int tmp = 1;
-	while( index <= latest )//bug
+	int child = 2;
+	int parent = 1;
+	while( child <= latest )//bug
 	{
-		if( index + 1 > latest ) tmp = index;
-		else tmp =  if( ary[index] > ary[index/2] && ary[index+1] > ary[index/2] ) break;
-		else
-		{
-			
-		}
-		else 
-		{
-			tmp = ary[index*2] < ary[index*2+1] ? index*2 <= latest ? index*2 : tmp : index*2+1 <= latest ? index*2+1 : tmp;
-			swap( &ary[tmp], &ary[index] );
-		}
-		index = tmp;
+		if( child < latest && ary[child] > ary[ child + 1 ] ) child++;
+		if( ary[child] > tmp ) break;
+		ary[parent] = ary[child];
+		parent = child;
+		child *= 2;
 	}
-	swap( &ary[tmp], &ary[1] );
+	ary[parent] = tmp;
 	return result;
-	
 }
 
 void pResult(void)
@@ -105,7 +107,7 @@ void pResult(void)
 	int tmp = 1, count = 0, i;
 	for( i = 1; i <= latest; i++ )
 	{
-		printf( "%d ", minHeap[i] );
+		printf( "%2d  ", minHeap[i] );
 		count++;
 		if( tmp == count )
 		{
