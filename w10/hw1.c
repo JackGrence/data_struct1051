@@ -1,10 +1,11 @@
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 void pSort( void );
+void pRest( int indx, char str[] );
 int pop( int ary[] );
 void swap( int *a, int *b );
-void pResult(void);
 void insert( int item );
 int minHeap[10];
 int latest = 0;
@@ -13,7 +14,7 @@ int main( void )
 	int defaultTree[] = {10, 20, 30, 40, 50, 55, 45, 35, 25, 15};
 	int i;
 	for( i = 0; i < 8; i++ ) insert( defaultTree[i] );
-	pResult();
+	pRest( 1, (char *) "" );
 	int a;
 	printf( "(1)insert (2)pop (3)sort >> " );
 	while( scanf( "%d", &a ) != EOF )
@@ -33,7 +34,7 @@ int main( void )
 			pSort();
 		}
 		printf( "_____tree_____\n");
-		pResult();
+		pRest( 1, (char *) "" );
 		printf( "(1)insert (2)pop (3)sort >> " );
 	}
 	return 0;
@@ -102,19 +103,23 @@ int pop( int ary[] )
 	return result;
 }
 
-void pResult(void)
+// ├　─　┼　┴　┬　┤　┌　┐　╞　═　╪　╡　│　▕
+// 　└　┘　╭　╮　╰　╯
+
+void pRest( int indx, char str[] )
 {
-	int tmp = 1, count = 0, i;
-	for( i = 1; i <= latest; i++ )
-	{
-		printf( "%2d  ", minHeap[i] );
-		count++;
-		if( tmp == count )
-		{
-			printf( "\n" );
-			count = 0;
-			tmp *= 2;
-		}
-	}
-	printf( "\n" );
+	char s[100];
+	if( latest == 0 ) return;
+	printf( "%d\n", minHeap[indx] );
+	if( indx*2 > latest ) return;
+	if( indx*2+1 > latest ) printf( "%s└─", str );
+	else printf( "%s├─", str );
+	strcpy( s, str );
+	strcat( s, "│ " );
+	pRest( indx * 2, s );
+	if( indx*2+1 > latest ) return;
+	printf( "%s└─", str );
+	strcpy( s, str );
+	strcat( s, "  " );
+	pRest( indx * 2 + 1, s );
 }
