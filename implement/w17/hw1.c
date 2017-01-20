@@ -5,6 +5,10 @@
 int count( int map[ARYSIZE][ARYSIZE], int i, int j );
 void scan( int map[ARYSIZE][ARYSIZE] );
 void presult( int map[ARYSIZE][ARYSIZE] );
+void p( int m[] )
+{
+	printf( "infunction:%p\n", m );
+}
 int main( void )
 {
 	int map[ARYSIZE][ARYSIZE];
@@ -17,6 +21,17 @@ int main( void )
 	map[3][1] = 1;
 	map[3][2] = 1;
 	map[3][3] = 1;
+	map[20][30] = 1;
+	map[19][30] = 1;
+	map[20][31] = 1;
+	map[20][29] = 1;
+	map[21][31] = 1;
+	map[1][2] = 1;
+	map[2][2] = 1;
+	map[3][2] = 1;
+	int m[10];
+	printf( "main:%p\n", m );
+	p(m);
 	while( 1 )
 	{
 		scan(map);
